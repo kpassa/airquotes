@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TsegEstimates</title>
+  <title>Portal de Cotizaciones Tecniseguros</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div id="flash">
+  <p id="notice"><%= notice %></p>
+  <p id="alert"><%= alert %></p>
+  <p id="error"><%= flash[:error] %></p>
+</div>
+<div id="user_nav">
+  <% if logged_in? %>
+    Bienvenido(a) <%= current_user.name %>! | <%= link_to "salir", logout_path %>
+  <% else %>
+    <%= link_to "Acceder", login_path %>
+  <% end %>
+</div>
 <%= yield %>
 
 </body>

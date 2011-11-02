@@ -1,0 +1,49 @@
+<h1>Cotizador Tecniseguros</h1>
+
+<%= link_to '+PSM', new_estimate_path( :program => "PSM" )  %> |
+<%= link_to '+ST', new_estimate_path( :program => "ST" ) %>
+
+<table>
+  <tr>
+    <% if can? :manage, User %>
+      <th>User</th>
+    <% end %>
+    <th>Programa</th>
+    <% if can? :manage, Country %>
+      <th>Pais</th>
+    <% end %>
+    <th>Cobertura</th>
+    <th>Titular</th>
+    <th>Cantidad para Titular</th>
+    <th>Cantidad para Conyugue</th>
+    <th>Dental</th>
+    <th>Severe illness</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @estimates.each do |estimate| %>
+  <tr>
+    <% if can? :manage, User %>
+      <td><%= estimate.user.name %></td>
+    <% end %>
+    <td><%= estimate.product.program %></td>
+    <% if can? :manage, Country %>
+      <td><%= current_user.country %></td>
+    <% end %>
+    <td><%= estimate.product.coverage %></td>
+    <td><%= estimate.client.full_name %></td>
+    <td><%= estimate.policyholder_amount %></td>
+    <td><%= estimate.spouse_amount %></td>
+    <td><%= estimate.dental %></td>
+    <td><%= estimate.severe_illness %></td>
+    <td><%= link_to 'mostrar', estimate %></td>
+    <td><%= link_to 'Editar', edit_estimate_path(estimate) %></td>
+    <td><%= link_to 'Destroy', estimate, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
