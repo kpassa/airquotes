@@ -17,7 +17,6 @@ end
 
 gem 'jquery-rails'
 
-
 gem 'compass'
 gem 'spreadsheet'
 gem 'rubyzip2'
@@ -27,6 +26,7 @@ gem 'cancan'
 gem 'activeadmin'
 gem "meta_search",    '>= 1.1.0.pre'
 gem 'paperclip'
+gem 'formtastic'
 
 # according to the activeadmin docs, i have to include metasearch
 

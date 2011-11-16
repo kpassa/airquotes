@@ -263,3 +263,10 @@ es:
 
       full_messages:
         format: "%{attribute} %{message}"
+
+  devise:
+    sessions:
+      admin_user:
+        signed_in: "Bienvenido(a), está en su casa."
+    failure:
+      already_authenticated: "Ya ha ingresado al sitio."

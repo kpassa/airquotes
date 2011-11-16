@@ -8,11 +8,11 @@
 */
 
 body {
-  background-color: #fff;
-  color: #333;
+  background-color: #E8E9EA;
+  color: #323537;
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px; }
+  font-size: 72%;
+  line-height: 150% }
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -63,6 +63,25 @@ div {
   ul li {
     font-size: 12px;
     list-style: square; } }
+
+form input[type=text], form input[type=password], form input[type=email], form input[type=url], form input[type=tel], form textarea {
+  width: 76%;
+  border: 1px solid #c9d0d6;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 0.95em;
+  font-family: Helvetica, Arial, sans-serif;
+  outline: none;
+  padding: 8px 10px 7px;
+
+  &:focus {
+      border: 1px solid #99A2AA;
+      box-shadow: 0 0 4px #99A2AA;
+      -moz-box-shadow: 0 0 4px #99A2AA;
+      -webkit-box-shadow: 0 0 4px #99A2AA;
+  }
+}
 
 @import 'estimates.css.scss';
 @import 'sessions.css.scss';

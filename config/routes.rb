@@ -1,5 +1,9 @@
 TsegEstimates::Application.routes.draw do
 
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
   get "fee_calcs/show"
 
   resources :estimates

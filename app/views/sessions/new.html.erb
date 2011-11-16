@@ -1,13 +1,14 @@
-<h1>Log in</h1>
+<h1>Autenticación</h1>
 
 <%= form_tag sessions_path do %>
-  <p>
-    <%= label_tag :username, "usuario" %>
-    <%= text_field_tag :username, params[:username] %>
-  </p><p>
-    <%= label_tag :password, "contraseña" %>
-    <%= password_field_tag :password %>
-  </p><p>
-    <%= submit_tag "acceder" %>
-  </p>
+  <ul>
+    <li>
+      <%= label_tag :username, "usuario" %>
+      <%= text_field_tag :username, params[:username] %>
+    </li><li>
+      <%= label_tag :password, "contraseña" %>
+      <%= password_field_tag :password %>
+    </li>
+  </ul>
+  <%= submit_tag "acceder" %>
 <% end %>

@@ -13,17 +13,6 @@ guate = Country.create!( name: 'Guatemala', code: '502' )
 el_salvador = Country.create!( name: 'El Salvador', code: '503' )
 honduras = Country.create!( name: 'Honduras', code: '504' )
 
-City.destroy_all
-
-guate.cities.create!([ { name: 'Guatemala' }, { name: 'Antigua Guatemala' },
-                      { name: 'Escuintla' }, { name: 'Quetzaltenango' },
-                      { name: 'Cobán' }, { name: 'Chimaltenango' },
-                      { name: 'Puerto Barrios' }, { name: 'Comalapa' } ])
-
-el_salvador.cities.create!([ { name: 'San Salvador' }])
-
-honduras.cities.create!([{name:'San Pedro Sula'},{name:'Tegucigalpa'}])
-
 Program.destroy_all
 psm = Program.create!( name: 'PSM' )
 st = Program.create!( name: 'Salud Total' )
@@ -43,10 +32,12 @@ st_grupo = st.coverages.create!( description: 'Grupo')
 
 User.destroy_all
 
-guate.users
-  .create!([{ name: "Paola", username: 'paola', password: 'cotizaciones', email: 'paola.figueroa@tecniseguros.com'},
-           { name: "Andreas", username: 'andreas', password: 'cotizaciones', email: 'awagner55@gmail.com' },
-           { name: "Kyle", username: 'kyle', password: 'cotizaciones', email: 'kyle.passarelli@gmail.com' }])
+paola = guate.users
+  .create!(name: "Paola", username: 'paola', password: 'cotizaciones', email: 'paola.figueroa@tecniseguros.com')
+
+andreas = guate.users.create!(name: "Andreas", username: 'andreas', password: 'cotizaciones', email: 'awagner55@gmail.com' )
+
+kyle = guate.users.create( name: "Kyle", username: 'kyle', password: 'cotizaciones', email: 'kyle.passarelli@gmail.com' )
 
 Product.destroy_all
 psm_guate_completo  = Product.create!( country: guate, program: psm, coverage: psm_completo )
@@ -99,13 +90,13 @@ st_guate_anos_dorados.coverage_amounts.destroy_all
 st_guate_anos_dorados.coverage_amounts.create!([{ amount: 5000 }])
 
 letter_header = <<END_OF_HEADER
-Guatemala, <created_at>
+Guatemala, <fecha>
 Señor (a)
-<client.ful_name>
+<cliente>
 END_OF_HEADER
 
 letter_body1 = <<END_OF_BODY1
-Estimado (a) <client.names>
+Estimado (a) <cliente_nombres>
 
 Estamos conscientes que su salud y la de su familia es lo más importante para usted, por ello debe contar con la protección del seguro médico más completo, PSM Internacional, porque cuando ocurren situaciones imprevistas, le facilitará el acceso a los mejores servicios médicos disponibles tanto localmente como en el extranjero, preservando su buena salud y manteniendo su estilo de vida.
 
@@ -119,11 +110,24 @@ Será un orgullo para nosotros poder asesorarle personalmente, por lo que si des
 
 Atentamente,
 
-<user.name>
-<user.title>
-<user.phone>
+<vendedor>
+<vendedor_titulo>
+<vendedor_telefono>
 
 END_OF_BODY2
 
 Letter.destroy_all
-letters = psm.letters.create!( :header => letter_header, :body_1 => letter_body1, :body_2 => letter_body2 )
+psm_letter = psm.letters.create!( :header => letter_header, :body_1 => letter_body1, :body_2 => letter_body2 )
+
+FeeCalc.destroy_all
+
+psm_guate_completo_fee_calcs = psm_guate_completo.fee_calcs.new
+
+Estimate.destroy_all
+Client.destroy_all
+
+client1 = Client.create( :names => "Ana Laura", :last_name1 => "Fauna", :last_name2 => "Flores", :title => "Srita.", :address => "11 calle 6-15 zona 1, Guatemala", :phone1 => "2234 2342", :phone2 => "5787 3223", :email => "anafauna@hotmail.com", :gender => "femenino", :date_of_birth => Date.new( 1978, 9, 8  ), :spouse_date_of_birth => Date.new( 1975, 4, 3 ), :dependents => 2 )
+
+estimate1 = Estimate.create!( :user => kyle, :program => psm, :coverage => psm_completo )
+
+estimate1.client = client1

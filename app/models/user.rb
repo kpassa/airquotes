@@ -6,8 +6,4 @@ class User < ActiveRecord::Base
 
   validates :name, :presence => true
 
-  def admin?
-    admin
-  end
-
 end

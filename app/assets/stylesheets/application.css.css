@@ -7,11 +7,11 @@
  *= require formtastic_changes
 */
 body {
-  background-color: #fff;
-  color: #333;
+  background-color: #E8E9EA;
+  color: #323537;
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px; }
+  font-size: 72%;
+  line-height: 150%; }
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -61,3 +61,43 @@ div.field, div.actions {
   #error_explanation ul li {
     font-size: 12px;
     list-style: square; }
+
+form input[type=text], form input[type=password], form input[type=email], form input[type=url], form input[type=tel], form textarea {
+  width: 76%;
+  border: 1px solid #c9d0d6;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 0.95em;
+  font-family: Helvetica, Arial, sans-serif;
+  outline: none;
+  padding: 8px 10px 7px; }
+  form input[type=text]:focus, form input[type=password]:focus, form input[type=email]:focus, form input[type=url]:focus, form input[type=tel]:focus, form textarea:focus {
+    border: 1px solid #99A2AA;
+    box-shadow: 0 0 4px #99A2AA;
+    -moz-box-shadow: 0 0 4px #99A2AA;
+    -webkit-box-shadow: 0 0 4px #99A2AA; }
+
+body#sessions #wrapper {
+  display: table;
+  width: 100%; }
+body#sessions #content_wrapper {
+  width: 500px;
+  margin: 70px auto; }
+body#sessions #content_box {
+  background: white;
+  padding: 13px 30px; }
+body#sessions form ul {
+  list-style-type: none;
+  padding-left: 0; }
+body#sessions form ul > li {
+  padding: 10px 0; }
+body#sessions form label {
+  display: block;
+  width: 20%;
+  float: left;
+  font-size: 1.0em;
+  font-weight: bold;
+  color: #5E6469; }
+body#sessions form input[type=email], body#sessions form input[type=text], body#sessions form input[type=password] {
+  width: 70%; }

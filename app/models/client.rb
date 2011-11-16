@@ -7,5 +7,6 @@ class Client < ActiveRecord::Base
   def full_name
     "#{names} #{last_name1} #{last_name2}"
   end
+
 end
 

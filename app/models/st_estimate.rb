@@ -1,3 +1,0 @@
-class StEstimate < Estimate
-
-end

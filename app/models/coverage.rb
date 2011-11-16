@@ -1,6 +1,8 @@
 class Coverage < ActiveRecord::Base
   has_many :products
-  has_many :programs
+  has_many :estimates
+
+  belongs_to :program
 
   def name
     description

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Portal de Cotizaciones Tecniseguros</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<%= content_tag :body, :id => params[:controller], :class => controller.action_name do %>
+  <div id="wrapper">
+    <div id="content_wrapper">
+      <div id="flash">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <% end %>
+      </div>
+      <div id="content_box">
+        <%= yield %>        
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<% end %>
+</html>

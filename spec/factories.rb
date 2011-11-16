@@ -62,14 +62,6 @@ FactoryGirl.define do
     dental true
   end
 
-  factory :psm_estimate do
-    spouse_amount 5
-  end
-
-  factory :st_estimate do
-    severe_illness false
-  end
-
   factory :fee_calc do
     product
   end

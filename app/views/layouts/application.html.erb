@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Portal de Cotizaciones Tecniseguros</title>
+  <title>Cotizaciones Tecniseguros</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <div id="flash">
-  <p id="notice"><%= notice %></p>
-  <p id="alert"><%= alert %></p>
-  <p id="error"><%= flash[:error] %></p>
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <% end %>
 </div>
 <div id="user_nav">
   <% if logged_in? %>

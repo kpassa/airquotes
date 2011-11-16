@@ -1,2 +1,0 @@
-class PsmEstimate < Estimate
-end
