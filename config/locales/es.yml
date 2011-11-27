@@ -4,6 +4,8 @@
 #  - Tsutomu Kuroda - http://github.com/kuroda (t-kuroda@oiax.jp)
 # Corrected by Eloy Serra Labán: http://goo.gl/i9Kts, /nQ928, /XfKaX
 
+# Combined with ActiveAdmin locale (kp)
+
 es:
   activerecord:
     models:
@@ -128,8 +130,8 @@ es:
 
     currency:
       format:
-        format: "%n %u"
-        unit: "Q"
+        format: "%u%n"
+        unit: "$"
         separator: "."
         delimiter: ","
         precision: 2
@@ -264,9 +266,46 @@ es:
       full_messages:
         format: "%{attribute} %{message}"
 
+  active_admin:
+    dashboard: Inicio
+    dashboard_welcome:
+      welcome: "Bienvenido a Active Admin. Esta es la página de inicio predeterminada."
+      call_to_action: "Para agregar secciones edita 'app/admin/dashboards.rb'"
+    view: "Ver"
+    edit: "Editar"
+    delete: "Eliminar"
+    delete_confirmation: "¿Está seguro que quiere eliminar esto?"
+    new_model: "Nuevo(a) %{model}"
+    edit_model: "Editar %{model}"
+    delete_model: "Eliminar %{model}"
+    details: "Detalles de %{model}"
+    cancel: "Cancelar"
+    empty: "Vacío"
+    previous: "Anterior"
+    next: "Siguiente"
+    download: "Descargar:"
+    has_many_new: "Agregar nuevo(a) %{model}"
+    has_many_delete: "Eliminar"
+    filter: "Filtrar"
+    clear_filters: "Quitar Filtros"
+    search_field: "Buscar %{field}"
+    equal_to: "Igual a"
+    greater_than: "Mayor que"
+    less_than: "Menor que"
+    main_content: "Por favor implemente %{model}#main_content para mostrar contenido."
+    logout: "Salir"
+    sidebars:
+      filters: "Filtros"
+    pagination:
+      empty: "Ningún(a) %{model} encontrado"
+      one: "Mostrando <b>1</b> %{model}"
+      one_page: "Mostrando <b>todos(as) los(as) %{n}</b> %{model}"
+      multiple: "Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de un total de <b>%{total}</b>"
+    any: "Todos"
+    blank_slate:
+      content: "No hay %{resource_name} aún."
+      link: "Crea uno(a)"
   devise:
     sessions:
       admin_user:
-        signed_in: "Bienvenido(a), está en su casa."
-    failure:
-      already_authenticated: "Ya ha ingresado al sitio."
+        signed_in: "Siéntase como en casa"

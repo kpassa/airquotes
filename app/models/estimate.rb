@@ -5,14 +5,28 @@ class Estimate < ActiveRecord::Base
   belongs_to :product
   belongs_to :letter
 
-  has_one :client
+  has_one :client, :dependent => :destroy
+  serialize :ignored_fields_list
 
   accepts_nested_attributes_for :client
 
   validate :policyholder_amount_is_greater_than_spouse_amount
-  before_validation :get_product
   
   after_save :build_letter
+
+  scope :recent, lambda { |n| order( 'created_at DESC' ).first(n) }
+
+  def ignored_fields=(comma_separated_list)
+    self.ignored_fields_list = comma_separated_list.split(",")
+  end
+
+  def ignored_fields
+    ignored_fields_list.join(",")
+  end
+
+  def beneficiaries
+    client.family_members
+  end
 
   def letter_html
     vars = { 
@@ -29,15 +43,9 @@ class Estimate < ActiveRecord::Base
 
   private
 
-  def get_product
-    p = Product.where( country_id: user.country, program_id: program, coverage_id: coverage ).first
-    raise "Product not found: #{user.country} #{program} #{coverage}" unless p
-    self.update_attribute( :product_id, p.id ) # to avoid triggering validation
-  end
-
   def policyholder_amount_is_greater_than_spouse_amount
     if policyholder_amount && spouse_amount
-      self.errors.add(:spouse_amount, "debe de ser menos que la cantidad del titular.")
+      self.errors.add(:spouse_amount, "debe de ser menos que la cantidad del titular.") unless spouse_amount < policyholder_amount
     end
   end
 

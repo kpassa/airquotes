@@ -1,0 +1,17 @@
+<div class="instructions">
+  <p>Puede poblar la tabla pulsando los vínculos abajo.  Verá la tabla (o la carta del programa, si existe) con algunos campos ya llenos (el nombre del cliente, etc.).  Estos datos se llenan en la parte superior de su navegador, donde se encuentra la dirección de la págnia en sí:</p>
+
+<pre>fee_calcs/18/preview?beneficiarios=2&cliente=Laura+María+Alvarez&cliente_nombres=...</pre>
+
+Experimente con diferentes valores, y cada vez que apache [enter] verá la tabla cambiar.  Si no está obteniendo el resultado deseado, puede que necesite ajustar su archivo de Excel y subirlo de nuevo.
+
+</div>
+
+<ul>
+  <li><%= link_to "Laura María Alvarez: 35 años, casada, sin hijos", preview_admin_fee_calc_url( @fee_calc, :edad_titular => 35, :edad_conyugue => 30, :beneficiarios => 2, :dependientes => 0, :cliente_nombres => "Laura María", :cliente => "Laura María Alvarez", :fecha => "18 de mayo del 2011", :vendedor => "Paola Figueroa", :vendedor_titulo => "Asesora", :vendedor_telefono => "5340 2323"  ) %></li>
+
+  <li><%= link_to "Pablo Morales: 37 años, casado, con dos hijos", preview_admin_fee_calc_url( @fee_calc, :edad_titular => 37, :edad_conyugue => 36, :beneficiarios => 4, :dependientes => 2 ) %></li>
+
+  <li><%= link_to "Leticia Cuc: 32 años, soltera, sin hijos", preview_admin_fee_calc_url( @fee_calc, :edad_titular => 32, :edad_conyugue => 0, :beneficiarios => 1, :dependientes => 0 ) %></li>
+</ul>
+

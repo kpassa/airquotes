@@ -1,2 +1,134 @@
+<div class="panel">
+  <h3>Datos del Cliente</h3>
+  <div class="panel_contents">
+    <div class="attributes_table estimate">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td>
+              Cliente
+            </td>
+            <td>
+              <%= full_name_including_maiden_name( @client ) %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Dirección
+            </td>
+            <td>
+              <%= @client.address %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Teléfono 1
+            </td>
+            <td>
+              <%= @client.phone1 %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Teléfono 2
+            </td>
+            <td>
+              <%= @client.phone2 %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Correo Electrónico
+            </td>
+            <td>
+              <%= @client.email %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Fecha de Nacimiento
+            </td>
+            <td>
+              <%= @client.date_of_birth %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="panel">
+  <h3>Datos De La Cotización</h3>
+  <div class="panel_contents">
+    <div class="attributes_table estimate">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td>
+              Cobertura
+            </td>
+            <td>
+              <%= @coverage.name %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Monto de Cobertura Para Titular
+            </td>
+            <td>
+              <%= @estimate.policyholder_amount %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Monto de Cobertura Para Cónyugue
+            </td>
+            <td>
+              <%= @estimate.spouse_amount || "n/a" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Seguro Dental
+            </td>
+            <td>
+              <%= @estimate.dental ? "sí" : "no" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Enfermedades Graves
+            </td>
+            <td>
+              <%= @estimate.severe_illness ? "si" : "no" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-<%= raw @estimate.letter_html %>
+<div class="panel">
+  <h3>Carta</h3>
+  <div class="panel_contents">
+    <%= @letter.html @letter_vars do %>
+      <% @fee_calc.table( @table_vars ) %>
+    <% end %>
+  </div>
+</div>
+<div class="panel">
+  <h3>Adjuntos</h3>
+  <div class="panel_contents">
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <% for attachment in @attachments do %>
+          <td>
+            <%= link_to image_tag( "pdf.png" ), attachment.payload.url %><br/>
+            <strong><%= attachment.payload_file_name %></strong>
+          </td>
+      <% end %>
+      </tr>
+    </table>
+  </div>
+</div>

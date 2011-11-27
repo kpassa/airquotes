@@ -1,0 +1,12 @@
+<table>
+  <% 2.upto @n_rows do |i| %>
+    <tr>
+      <% 2.upto @n_cols do |j| %>
+        <% coords = FeeCalc.indices2coords(i,j) %>
+        <% if @table_vars[coords] %>
+          <td><%= coords + ": " + @table_vars[coords].join(", ") %></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,59 @@
+Los siguientes diagnósticos indican si el sitio tiene toda la información
+necesaria para operar:
+
+<table>
+  <thead>
+    <tr>
+      <td>
+        Aspecto
+      </td>
+      <td>
+        Status
+      </td>
+      <td>
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        1 carta por programa
+      </td>
+      <td>
+        <%= Letter.complete? ? "si" : "no" %>
+      </td>
+      <td>
+        <% unless Letter.complete? %>
+          <%= link_to "corregir", admin_letters_path, :notice => "bla" %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        1 tabla de tarifas por producto activo
+      </td>
+      <td>
+        <%= FeeCalc.complete? ? "si" : "no" %>
+      </td>
+      <td>
+        <% unless FeeCalc.complete? %>
+          <%= link_to "corregir", admin_fee_calcs_path %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Por lo menos 1 cobertura por programa
+      </td>
+      <td>
+        <%= Program.complete? ? "si" : "no" %>
+      </td>
+      <td>
+        <% unless Program.complete? %>
+          <%= link_to "corregir", admin_coverage_amounts_path %>
+        <% end %>
+      </td>
+    </tr>
+
+  </tbody>
+</table>

@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
-# This file should contain all the record creation needed to seed the database with its default values.
+# This file contains all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Estimate.destroy_all
+User.destroy_all
 Country.destroy_all
 
-guate = Country.create!( name: 'Guatemala', code: '502' )
-el_salvador = Country.create!( name: 'El Salvador', code: '503' )
-honduras = Country.create!( name: 'Honduras', code: '504' )
+guate = Country.create!( name: 'Guatemala', code: '502', currency_symbol: "Q" )
+el_salvador = Country.create!( name: 'El Salvador', code: '503', currency_symbol: "$" )
+honduras = Country.create!( name: 'Honduras', code: '504', currency_symbol: "L" )
 
 Program.destroy_all
 psm = Program.create!( name: 'PSM' )
@@ -30,43 +27,41 @@ st_anos_dorados_economico = st.coverages.create!( description: 'Años Dorados Ec
 st_servimed = st.coverages.create!( description: 'Servimed')
 st_grupo = st.coverages.create!( description: 'Grupo')
 
-User.destroy_all
-
 paola = guate.users
-  .create!(name: "Paola", username: 'paola', password: 'cotizaciones', email: 'paola.figueroa@tecniseguros.com')
+  .create!(name: "Paola", username: 'paola', password: 'tranquilidad', password_confirmation: 'tranquilidad', email: 'paola.figueroa@tecniseguros.com', address_1: "Zona 10", phone: "9823 2342" )
 
-andreas = guate.users.create!(name: "Andreas", username: 'andreas', password: 'cotizaciones', email: 'awagner55@gmail.com' )
+kyle = guate.users.
+  create!( name: "Kyle", username: 'kyle', password: 'tranquilidad', password_confirmation: 'tranquilidad', email: 'kyle.passarelli@gmail.com', address_1: "Zona 1", phone: "1231 0900" )
 
-kyle = guate.users.create( name: "Kyle", username: 'kyle', password: 'cotizaciones', email: 'kyle.passarelli@gmail.com' )
+andreas = guate.users.
+  create!(name: "Andreas", username: 'andreas', password: 'tranquilidad', password_confirmation: 'tranquilidad', email: 'awagner55@gmail.com', address_1: "Zona 10", phone: "9823 2342" )
 
-Product.destroy_all
-psm_guate_completo  = Product.create!( country: guate, program: psm, coverage: psm_completo )
+for country in Country.all
+  for coverage in Coverage.all
+    # where is Rails' fist_or_create! method when you need it!
+    # this looks stupid
+    params = { :program_id => coverage.program.id, :country_id => country.id, :coverage_id => coverage.id }
+    p = Product.where( params ).first
+    Product.create!( params ) unless p
+  end
+end
 
-psm_guate_hospitalario = Product.create!( country: guate, program: psm, coverage: psm_hospitalario )
-
-psm_el_salvador_completo = Product.create!( country: el_salvador, program: psm, coverage: psm_completo )
-
-st_guate_familiar_completo = Product.create!( country: guate, program: st, coverage: st_familiar_completo )
-
-st_guate_familiar_economico = Product.create!( country: guate, program: st, coverage: st_familiar_economico )
-
-st_guate_completo_ninos = Product.create!( country: guate, program: st, coverage: st_completo_ninos )
-
-st_guate_completo_ninos = Product.create!( country: guate, program: st, coverage: st_completo_ninos )
-
-st_guate_anos_dorados = Product.create!( country: guate, program: st, coverage: st_anos_dorados )
-
-st_guate_anos_dorados_economico = Product.create!( country: guate, program: st, coverage: st_anos_dorados_economico )
-
-st_guate_servimed = Product.create!( country: guate, program: st, coverage: st_servimed )
-
-st_guate_grupo = Product.create!( country: guate, program: st, coverage: st_grupo )
+psm_guate_completo = Product.where( program_id: psm, country_id: guate, coverage_id: psm_completo ).first
 
 Attachment.destroy_all
-attachments = Attachment.create!( product: psm_guate_completo )
+psm_guate_completo_attach = psm_guate_completo.attachments.new
+
+psm_guate_completo_attach.payload = File.open( "db/seeds/sample_attachment.pdf" )
+
+psm_guate_completo_attach.save!
 
 FeeCalc.destroy_all
-fee_calcs = FeeCalc.create!( product: psm_guate_completo )
+
+fee_calcs = FeeCalc.new( product: psm_guate_completo )
+
+fee_calcs.spreadsheet = File.open( "db/seeds/psm_guate_completo.xls" )
+
+fee_calcs.save!
 
 CoverageAmount.destroy_all
 # All PSM products have the same coverage amounts
@@ -86,48 +81,77 @@ for p in st_products do
   p.coverage_amounts.create!([{ amount: 50000 },{ amount: 100000}])
 end
 
+st_guate_anos_dorados = Product.where( program_id: st, country_id: guate, coverage_id: st_anos_dorados ).first
 st_guate_anos_dorados.coverage_amounts.destroy_all
+
 st_guate_anos_dorados.coverage_amounts.create!([{ amount: 5000 }])
 
-letter_header = <<END_OF_HEADER
+psm_letter_header = <<END_OF_HEADER
+<p class="heading">
+Guatemala, <fecha>
+  <p style = "font-weight:bold">
+    Señor (a)<br/>
+    <cliente>
+  </p>
+</p>
+END_OF_HEADER
+
+psm_letter_body1 = <<END_OF_BODY1
+<p>
+Estimado (a) <cliente_nombres><br/>
+</p>
+
+<p>Estamos conscientes que su salud y la de su familia es lo más importante para usted, por ello debe contar con la protección del seguro médico más completo, <span style="font-weight:bold">PSM Internacional</span>, porque cuando ocurren situaciones imprevistas, le facilitará el acceso a los mejores servicios médicos disponibles tanto localmente como en el extranjero, preservando su buena salud y manteniendo su estilo de vida.</p>
+
+<p>Conozca en los documentos adjuntos los grandes beneficios que ningún otro programa puede ofrecerle en la dimensión que PSM Internacional lo hace, y en el detalle los montos de cobertura de los diferentes planes de <span style="font-weight:bold">PSM Internacional</span>.</p>
+
+<p>A continuación le presentamos la proyección de costos de cada plan, los cuales están basados en los datos que nos ha proporcionado:</p>
+END_OF_BODY1
+
+psm_letter_body2 = <<END_OF_BODY2
+<p>Será un orgullo para nosotros poder asesorarle personalmente, por lo que si desea que enviemos un asesor o tiene alguna duda que necesite aclarar comuníquese con nosotros que con gusto le ayudaremos.</p>
+<br/>
+Atentamente,
+
+<vendedor><br/>
+<vendedor_titulo><br/>
+<vendedor_telefono><br/>
+
+END_OF_BODY2
+
+st_letter_header = <<END_OF_HEADER
 Guatemala, <fecha>
 Señor (a)
 <cliente>
 END_OF_HEADER
 
-letter_body1 = <<END_OF_BODY1
-Estimado (a) <cliente_nombres>
+st_letter_body1 = <<END_OF_BODY1
+Estimado (a) <cliente_nombres><br/>
 
-Estamos conscientes que su salud y la de su familia es lo más importante para usted, por ello debe contar con la protección del seguro médico más completo, PSM Internacional, porque cuando ocurren situaciones imprevistas, le facilitará el acceso a los mejores servicios médicos disponibles tanto localmente como en el extranjero, preservando su buena salud y manteniendo su estilo de vida.
+<p>Estamos conscientes que su salud y la de su familia es lo más importante para usted, por ello debe contar con la protección del seguro médico más completo, Salud Total, porque cuando ocurren situaciones imprevistas, le facilitará el acceso a los mejores servicios médicos disponibles tanto localmente como en el extranjero, preservando su buena salud y manteniendo su estilo de vida.</p>
 
-Conozca en los documentos adjuntos los grandes beneficios que ningún otro programa puede ofrecerle en la dimensión que PSM Internacional lo hace, y en el detalle los montos de cobertura de los diferentes planes de PSM Internacional.
+<p>Conozca en los documentos adjuntos los grandes beneficios que ningún otro programa puede ofrecerle en la dimensión que PSM Internacional lo hace, y en el detalle los montos de cobertura de los diferentes planes de PSM Internacional.</p>
 
-A continuación le presentamos la proyección de costos de cada plan, los cuales están basados en los datos que nos ha proporcionado:
+<p>A continuación le presentamos la proyección de costos de cada plan, los cuales están basados en los datos que nos ha proporcionado:</p>
 END_OF_BODY1
 
-letter_body2 = <<END_OF_BODY2
-Será un orgullo para nosotros poder asesorarle personalmente, por lo que si desea que enviemos un asesor o tiene alguna duda que necesite aclarar comuníquese con nosotros que con gusto le ayudaremos.
-
+st_letter_body2 = <<END_OF_BODY2
+<p>Será un orgullo para nosotros poder asesorarle personalmente, por lo que si desea que enviemos un asesor o tiene alguna duda que necesite aclarar comuníquese con nosotros que con gusto le ayudaremos.</p>
+<br/>
 Atentamente,
 
-<vendedor>
-<vendedor_titulo>
-<vendedor_telefono>
+<vendedor><br/>
+<vendedor_titulo><br/>
+<vendedor_telefono><br/>
 
 END_OF_BODY2
 
 Letter.destroy_all
-psm_letter = psm.letters.create!( :header => letter_header, :body_1 => letter_body1, :body_2 => letter_body2 )
-
-FeeCalc.destroy_all
-
-psm_guate_completo_fee_calcs = psm_guate_completo.fee_calcs.new
-
-Estimate.destroy_all
-Client.destroy_all
+psm.letter = Letter.create!( :header => psm_letter_header, :body_1 =>  psm_letter_body1, :body_2 =>  psm_letter_body2 )
+st.letter = Letter.create!( :header => st_letter_header, :body_1 =>  st_letter_body1, :body_2 =>  st_letter_body2 )
 
 client1 = Client.create( :names => "Ana Laura", :last_name1 => "Fauna", :last_name2 => "Flores", :title => "Srita.", :address => "11 calle 6-15 zona 1, Guatemala", :phone1 => "2234 2342", :phone2 => "5787 3223", :email => "anafauna@hotmail.com", :gender => "femenino", :date_of_birth => Date.new( 1978, 9, 8  ), :spouse_date_of_birth => Date.new( 1975, 4, 3 ), :dependents => 2 )
 
-estimate1 = Estimate.create!( :user => kyle, :program => psm, :coverage => psm_completo )
+estimate1 = Estimate.create!( :user => kyle, :product => psm_guate_completo, :program => psm, :coverage => psm_completo, :policyholder_amount => 40000, :spouse_amount => 35000, :dental => false, :severe_illness => false )
 
 estimate1.client = client1

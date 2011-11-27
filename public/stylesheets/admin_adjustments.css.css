@@ -1,0 +1,43 @@
+/* line 1, ../../app/assets/stylesheets/admin_adjustments.css.scss */
+.fee_table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+/* line 5, ../../app/assets/stylesheets/admin_adjustments.css.scss */
+.fee_table tr.header {
+  background-color: aliceblue;
+}
+/* line 7, ../../app/assets/stylesheets/admin_adjustments.css.scss */
+.fee_table tr.header td {
+  padding: 0px 5px;
+  text-align: center;
+  border-left: 1px solid black;
+}
+/* line 14, ../../app/assets/stylesheets/admin_adjustments.css.scss */
+.fee_table tr.subheading {
+  background-color: ghostwhite;
+  font-weight: bold;
+  border: 1px solid black;
+}
+/* line 20, ../../app/assets/stylesheets/admin_adjustments.css.scss */
+.fee_table tr.total {
+  background-color: ghostwhite;
+  font-weight: bold;
+  border: 1px solid black;
+  font-size: 110%;
+}
+/* line 27, ../../app/assets/stylesheets/admin_adjustments.css.scss */
+.fee_table td.data_cell {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+/* line 32, ../../app/assets/stylesheets/admin_adjustments.css.scss */
+.fee_table .currency_symbol {
+  float: left;
+  padding-left: 1em;
+}
+/* line 37, ../../app/assets/stylesheets/admin_adjustments.css.scss */
+.fee_table .amount {
+  float: right;
+  padding-right: 1em;
+}

@@ -1,87 +1,13 @@
 /*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
+ * Tecniseguros Stylesheets
+ * 
+ * These stylesheets are borrowed from ActiveAdmin.
  *= require_self
  *= require formtastic
  *= require formtastic_changes
 */
 
-body {
-  background-color: #E8E9EA;
-  color: #323537;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 72%;
-  line-height: 150% }
+@import "mixins.css.scss";
 
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px; }
+@import "base.css.scss";
 
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px; }
-
-a {
-  color: #000;
-  &:visited {
-    color: #666; }
-  &:hover {
-    color: #fff;
-    background-color: #000; } }
-
-div {
-  &.field, &.actions {
-    margin-bottom: 10px; } }
-
-#notice {
-  color: green; }
-
-.field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table; }
-
-#error_explanation {
-  width: 450px;
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 0;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-  h2 {
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 5px 5px 15px;
-    font-size: 12px;
-    margin: -7px;
-    margin-bottom: 0px;
-    background-color: #c00;
-    color: #fff; }
-  ul li {
-    font-size: 12px;
-    list-style: square; } }
-
-form input[type=text], form input[type=password], form input[type=email], form input[type=url], form input[type=tel], form textarea {
-  width: 76%;
-  border: 1px solid #c9d0d6;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 0.95em;
-  font-family: Helvetica, Arial, sans-serif;
-  outline: none;
-  padding: 8px 10px 7px;
-
-  &:focus {
-      border: 1px solid #99A2AA;
-      box-shadow: 0 0 4px #99A2AA;
-      -moz-box-shadow: 0 0 4px #99A2AA;
-      -webkit-box-shadow: 0 0 4px #99A2AA;
-  }
-}
-
-@import 'estimates.css.scss';
-@import 'sessions.css.scss';

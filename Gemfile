@@ -7,6 +7,8 @@ gem 'rails', '3.1.1.rc1'
 
 gem 'sqlite3'
 
+gem 'therubyracer'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -41,8 +43,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'formtastic'
 

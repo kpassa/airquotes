@@ -1,0 +1,41 @@
+.fee_table {
+  border: 1px solid black;
+  border-collapse: collapse;
+
+  tr.header {
+    background-color: aliceblue;
+    td {
+      padding: 0px 5px;
+      text-align:center;
+      border-left: 1px solid black;
+    }
+  }
+
+  tr.subheading {
+    background-color: ghostwhite;
+    font-weight: bold;
+    border: 1px solid black;
+  }
+
+  tr.total {
+    background-color: ghostwhite;
+    font-weight:bold;
+    border: 1px solid black;
+    font-size:110%;
+  }
+    
+  td.data_cell {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+
+  .currency_symbol {
+    float:left;
+    padding-left:1em;
+  }
+
+  .amount {
+    float:right;
+    padding-right:1em;
+  }
+}

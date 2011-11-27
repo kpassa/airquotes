@@ -1,0 +1,19 @@
+ActiveAdmin.register Estimate do
+
+  index do
+    column :country do |estimate|
+      estimate.user.country.to_s
+    end
+    column :program
+    column :coverage
+
+    column :user do |estimate|
+      estimate.user.name
+    end
+    column :client
+    column :created_at
+    
+    default_actions
+  end
+
+end

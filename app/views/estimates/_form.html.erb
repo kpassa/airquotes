@@ -1,17 +1,35 @@
 <%= semantic_form_for(@estimate) do |f| %>
   <%= f.semantic_fields_for :client do |client| %>
-    <%= client.inputs :names, :last_name1, :last_name2, :gender, :maiden_name, :title, :name => "Basic" %>
-    <%= client.inputs :address, :phone1, :phone2, :email, :name => "Address" %>  
-    <%= client.inputs :date_of_birth, :spouse_date_of_birth, :dependents, :name => "Familia" %>
+    <%= client.inputs "Datos Personales" do %>
+      <%= client.input :names %>
+      <%= client.input :last_name1 %>
+      <%= client.input :last_name2 %>
+      <%= client.input :maiden_name %>
+      <%= client.input :gender, :as => :radio, :collection => %w[masculino femenino] %>
+      <%= client.input :title %>
+    <% end %>
+    <%= client.inputs "Dirección" do %>
+      <%= client.input :address, :input_html => { :rows => 8, :cols => 30 } %>
+      <%= client.input :phone1 %>
+      <%= client.input :phone2 %>
+      <%= client.input :email %>
+    <% end %>
+    <%= client.inputs "Familia" do %>
+      <%= client.input :date_of_birth %>
+      <%= client.input :spouse_date_of_birth %>
+      <%= client.input :dependents %>
+    <% end %>
   <% end %>
   <%= f.inputs do %>
-    <%= f.input :coverage, :as => :select, :input_html => { :include_blank => false }, :collection => Coverage.where( :program_id => @program ) %>
     <%= f.input :policyholder_amount, :as => :select, :collection => CoverageAmount.where( :product_id => @estimate.product ) %>
     <%= f.input :spouse_amount, :as => :select, :collection => CoverageAmount.where( :product_id => @estimate.product ) %>
     <%= f.input :dental %>
     <%= f.input :severe_illness %>
   <% end %>
-  <%= hidden_field_tag :program, @program.name %>
+
+  <%= hidden_field_tag 'estimate[program_id]', @program.id %>
+  <%= hidden_field_tag 'estimate[coverage_id]', @coverage.id %>
+  <%= hidden_field_tag 'estimate[product_id]', @product.id %>
 
   <%= f.buttons %>
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cotizaciones Tecniseguros</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body id="<%= params[:controller]%>" class="<%= body_class %>">
+  <div id="wrapper">
+    <div id="header">
+      <h1 id="site_title"><%= link_to "Cotizadores de Tecniseguros", root_url %></h1>
+      <ul class="tabbed_navigation" id="tabs">
+        <%= estimates_menu %>
+      </ul><!-- .tabbed_navigation -->
+      <p id="utility_nav">
+        <span class="current_user">
+          <%= current_user.name %>
+        </span>
+        <%= link_to "Salir", logout_path %>
+      </p>
+    </div>
+    <div id="title_bar">
+      <div id="titlebar_left">
+        <%= yield :titlebar_left %>
+      </div>
+      <div id="titlebar_right">
+        <%= yield :titlebar_right %>
+      </div>
+    </div>
+    <div class="flashes">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :class => "flash flash_#{name}" %>
+      <% end %>
+    </div>
+    <div id="content" class="without_sidebar">
+      <div id="main_content_wrapper">
+        <div id="main_content">
+          <%= yield :layout %>
+        </div><!-- #main_content_wrapper -->
+      </div><!-- content -->
+    </div><!-- #content -->
+    <div id="footer">
+      <p>
+        Copyright &copy; Colibri y RedCycle software, Guatemala
+      </p>
+    </div>
+  </div><!-- #wrapper -->
+</body>
+</html>

@@ -3,6 +3,7 @@ require File.expand_path('lib/authentication.rb')
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include Authentication
+  helper :layout
 
   helper_method :current_user
 

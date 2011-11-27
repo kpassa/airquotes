@@ -2,9 +2,12 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    return unless user
+    can :read, :login
+    can :read, :logout
 
-    can :manage, :all
+    if user
+      can :manage, Estimate, :user_id => user.id
+    end
 
   end
 end

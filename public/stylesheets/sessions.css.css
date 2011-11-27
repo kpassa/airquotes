@@ -1,31 +1,69 @@
 /* line 8, ../../app/assets/stylesheets/sessions.css.scss */
+body#sessions h2 {
+  background: #efefef;
+  background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#dfe1e2));
+  background: -moz-linear-gradient(-90deg, #efefef, #dfe1e2);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#efefef, endColorstr=#dfe1e2);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#efefef, endColorstr=#dfe1e2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  text-shadow: white 0 1px 0;
+  border-bottom: 1px solid #ededed;
+  padding: 5px 10px 3px 10px;
+  font-size: 1.0em;
+  font-weight: bold;
+  line-height: 140%;
+  margin-bottom: 0.5em;
+  color: #5e6469;
+  background: #6a7176;
+  background: -webkit-gradient(linear, left top, left bottom, from(#6a7176), to(#4d5256));
+  background: -moz-linear-gradient(-90deg, #6a7176, #4d5256);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
+  border-bottom: 1px solid #44484b;
+  text-shadow: black 0 1px 0;
+  color: #fff;
+  margin: -13px -30px 20px -30px;
+}
+/* line 36, ../../app/assets/stylesheets/sessions.css.scss */
 body#sessions #wrapper {
   display: table;
   width: 100%;
 }
-/* line 12, ../../app/assets/stylesheets/sessions.css.scss */
+/* line 40, ../../app/assets/stylesheets/sessions.css.scss */
 body#sessions #content_wrapper {
   width: 500px;
   margin: 70px auto;
 }
-/* line 16, ../../app/assets/stylesheets/sessions.css.scss */
+/* line 44, ../../app/assets/stylesheets/sessions.css.scss */
 body#sessions #content_box {
+  margin: 0;
+  padding: 25px 30px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
   background: white;
   padding: 13px 30px;
 }
-/* line 25, ../../app/assets/stylesheets/sessions.css.scss */
-body#sessions form ul {
+/* line 55, ../../app/assets/stylesheets/sessions.css.scss */
+body#sessions form ol, body#sessions form ul {
   list-style-type: none;
   padding-left: 0;
 }
-/* line 30, ../../app/assets/stylesheets/sessions.css.scss */
+/* line 62, ../../app/assets/stylesheets/sessions.css.scss */
+body#sessions form fieldset li {
+  padding: 10px 0;
+}
+/* line 67, ../../app/assets/stylesheets/sessions.css.scss */
+body#sessions form fieldset.buttons {
+  margin-left: 20%;
+}
+/* line 70, ../../app/assets/stylesheets/sessions.css.scss */
 body#sessions form ul > li {
   padding: 10px 0;
 }
-/* line 34, ../../app/assets/stylesheets/sessions.css.scss */
+/* line 74, ../../app/assets/stylesheets/sessions.css.scss */
 body#sessions form label {
   display: block;
   width: 20%;
@@ -34,7 +72,30 @@ body#sessions form label {
   font-weight: bold;
   color: #5E6469;
 }
-/* line 42, ../../app/assets/stylesheets/sessions.css.scss */
+/* line 82, ../../app/assets/stylesheets/sessions.css.scss */
 body#sessions form input[type=email], body#sessions form input[type=text], body#sessions form input[type=password] {
   width: 70%;
+}
+/* line 86, ../../app/assets/stylesheets/sessions.css.scss */
+body#sessions form input[type=submit] {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  background: #838a90;
+  background: -webkit-gradient(linear, left top, left bottom, from(#838a90), to(#414549));
+  background: -moz-linear-gradient(-90deg, #838a90, #414549);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#838a90, endColorstr=#414549);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#838a90, endColorstr=#414549);
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  border-radius: 200px;
+  text-shadow: black 0 1px 0;
+  text-decoration: none;
+  margin-right: 3px;
+  font-weight: bold;
+  font-size: 1.0em;
+  cursor: pointer;
+  padding: .6em 1.4em .5em 1.3em;
+  border: none;
+  color: #efefef;
 }

@@ -1,6 +1,13 @@
 class Letter < ActiveRecord::Base
   belongs_to :program
-  has_one :estimate
+  has_many :estimates
+
+  def self.complete?
+    for p in Program.all
+      return false unless p.letter
+    end
+    true
+  end
 
   # Returns letter text in HTML format
   def html( vars = {}, &block )
@@ -8,7 +15,10 @@ class Letter < ActiveRecord::Base
   end
 
   def header_html( vars )
-    self.class.render_string( header, vars )
+    logo_link = "<div class=\"program_logo\">
+  <%= image_tag program.logo.url(:page)%></div>"
+
+    self.class.render_string( logo_link + header, vars.merge(:program => program) )
   end
 
   def body_html( vars, &block )
@@ -26,13 +36,12 @@ class Letter < ActiveRecord::Base
     end
 
     view = ActionView::Base.new(ActionController::Base.view_paths, {})  
-  
+    
     class << view  
       include ApplicationHelper, FeeCalcsHelper
     end
     
-    view.render(:inline => erb, :locals => params)
+    view.render(:inline => erb, :locals => params )
   end
-
 
 end

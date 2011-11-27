@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111106224838) do
+ActiveRecord::Schema.define(:version => 20111127010523) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -50,6 +50,10 @@ ActiveRecord::Schema.define(:version => 20111106224838) do
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "payload_file_name"
+    t.string   "payload_content_type"
+    t.integer  "payload_file_size"
+    t.datetime "payload_updated_at"
   end
 
   add_index "attachments", ["product_id"], :name => "index_attachments_on_product_id"
@@ -80,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20111106224838) do
     t.string   "code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "currency_symbol"
   end
 
   create_table "coverage_amounts", :force => true do |t|
@@ -113,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20111106224838) do
     t.datetime "updated_at"
     t.text     "price_table"
     t.integer  "program_id"
+    t.string   "ignored_fields_list"
   end
 
   add_index "estimates", ["letter_id"], :name => "index_estimates_on_letter_id"
@@ -127,8 +133,10 @@ ActiveRecord::Schema.define(:version => 20111106224838) do
     t.string   "spreadsheet_content_type"
     t.integer  "spreadsheet_file_size"
     t.datetime "spreadsheet_updated_at"
-    t.string   "search_fields"
-    t.string   "column_data"
+    t.text     "table_html"
+    t.string   "table_vars"
+    t.integer  "data_rows"
+    t.integer  "data_cols"
   end
 
   add_index "fee_calcs", ["product_id"], :name => "index_fee_calcs_on_product_id"
@@ -149,6 +157,7 @@ ActiveRecord::Schema.define(:version => 20111106224838) do
     t.integer  "coverage_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",      :default => true
   end
 
   add_index "products", ["country_id"], :name => "index_products_on_country_id"
@@ -158,7 +167,21 @@ ActiveRecord::Schema.define(:version => 20111106224838) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
+
+  create_table "source_rows", :force => true do |t|
+    t.integer  "fee_calc_id"
+    t.string   "fields"
+    t.string   "columns"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "source_rows", ["fee_calc_id"], :name => "index_source_rows_on_fee_calc_id"
 
   create_table "users", :force => true do |t|
     t.integer  "country_id"
@@ -171,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20111106224838) do
     t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email"
   end
 
   add_index "users", ["country_id"], :name => "index_users_on_country_id"
