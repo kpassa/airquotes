@@ -9,7 +9,7 @@
               Cliente
             </td>
             <td>
-              <%= full_name_including_maiden_name( @client ) %>
+              <%=  @client.full_name %>
             </td>
           </tr>
           <tr>
@@ -112,9 +112,7 @@
 <div class="panel">
   <h3>Carta</h3>
   <div class="panel_contents">
-    <%= @letter.html @letter_vars do %>
-      <% @fee_calc.table( @table_vars ) %>
-    <% end %>
+    <%= @estimate_letter_html %>
   </div>
 </div>
 <div class="panel">

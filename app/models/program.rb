@@ -9,6 +9,7 @@ class Program < ActiveRecord::Base
     page: "260x160",
   }, :default_url => "program_logos/:style/missing.png"
 
+  serialize :ignored_fields_list
   validates :name, :presence => true
 
   def to_s
@@ -17,10 +18,6 @@ class Program < ActiveRecord::Base
 
   after_destroy :ensure_no_estimates_exist
   
-  def ensure_no_estimates_exist
-    raise "Hay cotizaciones para este programa!" unless estimates.empty?
-  end
-
   def self.complete?
     for p in Program.all
       return false unless p.coverages.first
@@ -28,5 +25,21 @@ class Program < ActiveRecord::Base
     true
   end
 
+  def ignored_fields=(comma_separated_list)
+    self.ignored_fields_list = comma_separated_list.split(",")
+  end
 
+  def ignored_fields
+    ignored_fields_list ? ignored_fields_list.join(",") : ""
+  end
+
+  def ignored?(field)
+    ignored_fields_list.index(field.to_s)
+  end
+
+private
+
+  def ensure_no_estimates_exist
+    raise "Hay cotizaciones para este programa!" unless estimates.empty?
+  end
 end

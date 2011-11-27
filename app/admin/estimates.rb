@@ -1,4 +1,5 @@
 ActiveAdmin.register Estimate do
+  scope :for_active_products
 
   index do
     column :country do |estimate|
@@ -15,5 +16,10 @@ ActiveAdmin.register Estimate do
     
     default_actions
   end
+
+  show do |estimate|
+    render estimate
+  end
+
 
 end

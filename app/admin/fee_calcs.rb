@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 ActiveAdmin.register FeeCalc do
   menu :parent => "Cálculos de Tarifa"
+  scope :for_active_products
 
   form do |f|
 

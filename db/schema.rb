@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111127010523) do
+ActiveRecord::Schema.define(:version => 20111127042656) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -60,9 +60,6 @@ ActiveRecord::Schema.define(:version => 20111127010523) do
 
   create_table "clients", :force => true do |t|
     t.string   "names"
-    t.string   "last_name1"
-    t.string   "last_name2"
-    t.string   "maiden_name"
     t.string   "title"
     t.text     "address",              :limit => 255
     t.string   "phone1"
@@ -75,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20111127010523) do
     t.integer  "estimate_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "last_names"
   end
 
   add_index "clients", ["estimate_id"], :name => "index_clients_on_estimate_id"
@@ -118,7 +116,8 @@ ActiveRecord::Schema.define(:version => 20111127010523) do
     t.datetime "updated_at"
     t.text     "price_table"
     t.integer  "program_id"
-    t.string   "ignored_fields_list"
+    t.boolean  "frozen",              :default => false
+    t.text     "frozen_html",         :default => ""
   end
 
   add_index "estimates", ["letter_id"], :name => "index_estimates_on_letter_id"
@@ -171,6 +170,7 @@ ActiveRecord::Schema.define(:version => 20111127010523) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.string   "ignored_fields_list"
   end
 
   create_table "source_rows", :force => true do |t|

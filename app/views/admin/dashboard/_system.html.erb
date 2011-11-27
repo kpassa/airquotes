@@ -50,7 +50,33 @@ necesaria para operar:
       </td>
       <td>
         <% unless Program.complete? %>
+          <%= link_to "corregir", admin_coverages_path %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Por lo menos 1 cantidad de cobertura por producto activo
+      </td>
+      <td>
+        <%= CoverageAmount.complete? ? "si" : "no" %>
+      </td>
+      <td>
+        <% unless CoverageAmount.complete? %>
           <%= link_to "corregir", admin_coverage_amounts_path %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Por lo menos 1 adjunto por producto activo
+      </td>
+      <td>
+        <%= Attachment.complete? ? "si" : "no" %>
+      </td>
+      <td>
+        <% unless Attachment.complete? %>
+          <%= link_to "corregir", admin_attachments_path %>
         <% end %>
       </td>
     </tr>

@@ -7,8 +7,8 @@ ActiveAdmin::Dashboards.build do
   section "Cotizaciones Recientes" do
     ul do
       Estimate.recent(5).collect do |estimate|
-        e =  link_to( estimate.product.to_s, admin_estimates_path( estimate ) ) + " por "
-        e += link_to( estimate.user.name, admin_users_path( estimate.user ) )
+        e =  link_to( estimate.product.to_s, admin_estimate_path( estimate ) ) + " por "
+        e += link_to( estimate.user.name, admin_user_path( estimate.user ) )
         e += " hace " + time_ago_in_words( estimate.created_at )
         li e.html_safe
       end

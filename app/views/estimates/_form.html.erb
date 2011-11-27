@@ -2,9 +2,7 @@
   <%= f.semantic_fields_for :client do |client| %>
     <%= client.inputs "Datos Personales" do %>
       <%= client.input :names %>
-      <%= client.input :last_name1 %>
-      <%= client.input :last_name2 %>
-      <%= client.input :maiden_name %>
+      <%= client.input :last_names %>
       <%= client.input :gender, :as => :radio, :collection => %w[masculino femenino] %>
       <%= client.input :title %>
     <% end %>
@@ -20,11 +18,11 @@
       <%= client.input :dependents %>
     <% end %>
   <% end %>
-  <%= f.inputs do %>
-    <%= f.input :policyholder_amount, :as => :select, :collection => CoverageAmount.where( :product_id => @estimate.product ) %>
-    <%= f.input :spouse_amount, :as => :select, :collection => CoverageAmount.where( :product_id => @estimate.product ) %>
-    <%= f.input :dental %>
-    <%= f.input :severe_illness %>
+  <%= f.inputs "Datos #{@program}" do %>
+    <%= input_unless_ignored(f, @program, :policyholder_amount, :as => :select, :collection => @coverage_amounts ) %>
+    <%= input_unless_ignored(f, @program, :spouse_amount, :as => :select, :collection => @coverage_amounts ) %>
+    <%= input_unless_ignored(f, @program, :dental ) %>
+    <%= input_unless_ignored(f, @program, :severe_illness ) %>
   <% end %>
 
   <%= hidden_field_tag 'estimate[program_id]', @program.id %>

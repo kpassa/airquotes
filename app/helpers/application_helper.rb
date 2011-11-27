@@ -13,7 +13,7 @@ module ApplicationHelper
 
   def estimates_menu
     menu = ''.html_safe
-    Product.where( :country_id => current_user.country ).group_by(&:program_id).each do |program_id, products|
+    Product.active.where( :country_id => current_user.country ).group_by(&:program_id).each do |program_id, products|
       menu += content_tag :li, :class =>  "has_nested", :id => "cotizaciones" do
         menu_item = ''
         program = Program.find(program_id)

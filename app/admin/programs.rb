@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+require File.expand_path('lib/product_pop.rb')
 
 ActiveAdmin.register Program do
   menu :parent => "Configuración"  
   
   form do |f|
-    f.inputs "Nombre" do
+    f.inputs "Básico" do
       f.input :name
+      f.input :ignored_fields
     end
 
     f.inputs "Logo" do
@@ -18,7 +20,10 @@ ActiveAdmin.register Program do
   index :as => :grid do |program|
     content_tag( :h3, program.name ) + 
       image_tag( program.logo.url(:page) ) +
+      content_tag( :div, :class => "actions" ) do 
+      link_to( "editar", edit_admin_program_path( program ) ) + " | " +
       link_to( "eliminar", admin_program_path( program ), method: :delete, confirm: "Borrar este programa?" )
+    end
   end
 
   show do
@@ -34,21 +39,6 @@ ActiveAdmin.register Program do
         end
       end
     end
-  end
-
-  controller do
-
-    def destroy
-      @program = Program.find( params[:id] )
-      begin
-        @program.destroy
-      rescue Exception => e
-        flash[:notice] = e.message
-      end
-
-      redirect_to admin_programs_url
-    end
-
   end
 
 end

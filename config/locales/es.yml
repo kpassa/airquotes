@@ -22,9 +22,7 @@ es:
     attributes:
       client:
         names: "nombres"
-        last_name1: "primer apellido"
-        last_name2: "segundo apellido"
-        maiden_name: "apellido de soltera"
+        last_names: "apellidos"
         title: "título"
         address: "dirección"
         phone1: "teléfono 1"

@@ -11,8 +11,8 @@ el_salvador = Country.create!( name: 'El Salvador', code: '503', currency_symbol
 honduras = Country.create!( name: 'Honduras', code: '504', currency_symbol: "L" )
 
 Program.destroy_all
-psm = Program.create!( name: 'PSM' )
-st = Program.create!( name: 'Salud Total' )
+psm = Program.create!( name: 'PSM', :ignored_fields => "severe_illness" )
+st = Program.create!( name: 'Salud Total', :ignored_fields => "spouse_amount" )
 
 Coverage.destroy_all
 psm_completo = psm.coverages.create!( description: 'Completa' )
@@ -150,8 +150,8 @@ Letter.destroy_all
 psm.letter = Letter.create!( :header => psm_letter_header, :body_1 =>  psm_letter_body1, :body_2 =>  psm_letter_body2 )
 st.letter = Letter.create!( :header => st_letter_header, :body_1 =>  st_letter_body1, :body_2 =>  st_letter_body2 )
 
-client1 = Client.create( :names => "Ana Laura", :last_name1 => "Fauna", :last_name2 => "Flores", :title => "Srita.", :address => "11 calle 6-15 zona 1, Guatemala", :phone1 => "2234 2342", :phone2 => "5787 3223", :email => "anafauna@hotmail.com", :gender => "femenino", :date_of_birth => Date.new( 1978, 9, 8  ), :spouse_date_of_birth => Date.new( 1975, 4, 3 ), :dependents => 2 )
+client1 = Client.create( :names => "Ana Laura", :last_names => "Fauna Flores", :title => "Srita.", :address => "11 calle 6-15 zona 1, Guatemala", :phone1 => "2234 2342", :phone2 => "5787 3223", :email => "anafauna@hotmail.com", :gender => "femenino", :date_of_birth => Date.new( 1978, 9, 8  ), :spouse_date_of_birth => Date.new( 1975, 4, 3 ), :dependents => 2 )
 
-estimate1 = Estimate.create!( :user => kyle, :product => psm_guate_completo, :program => psm, :coverage => psm_completo, :policyholder_amount => 40000, :spouse_amount => 35000, :dental => false, :severe_illness => false )
+estimate1 = Estimate.create!( :user => kyle, :product => psm_guate_completo, :program => psm, :coverage => psm_completo, :policyholder_amount => 100000, :spouse_amount => 40000, :dental => false, :severe_illness => false )
 
 estimate1.client = client1

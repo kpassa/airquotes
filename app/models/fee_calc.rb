@@ -13,12 +13,14 @@ class FeeCalc < ActiveRecord::Base
 
   serialize :table_vars
 
+  scope :for_active_products, joins(:product).merge(Product.active)
+
   def to_s
     product.to_s
   end
 
   def self.complete?
-    for p in Product.all
+    for p in Product.active
       return false unless p.fee_calc
     end
     true

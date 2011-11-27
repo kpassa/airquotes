@@ -21,9 +21,7 @@ FactoryGirl.define do
   factory :client do
     city
     first_names "Juan Luis"
-    last_name1 "Perez"
-    last_name2 "Juarez"
-    maiden_name ""
+    last_name "Perez Juarez"
     title ""
     address "Calle 13"
     phone_1 "3540 2302"

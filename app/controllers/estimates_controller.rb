@@ -15,36 +15,15 @@ class EstimatesController < ApplicationController
     @coverage = @product.coverage
     @letter = @program.letter
     @fee_calc = @product.fee_calc
-    @letter_vars = {
-      fecha:             @estimate.created_at.to_s,
-      cliente:           @client.full_name,
-      cliente_nombres:   @client.names,
-      cliente_titulo:    @client.title,
-      cliente_telefono1: @client.phone1,
-      cliente_telefono2: @client.phone2,
-      cliente_email:     @client.email,
-      vendedor:          current_user.name,
-      vendedor_titulo:   current_user.title,
-      vendedor_telefono: current_user.phone
-    }
-    @table_vars = {
-      edad_titular:        @client.age,
-      edad_conyugue:       @client.spouse_age || 0,
-      genero_titular:      @client.gender,
-      genero_conyugue:     [ "masculino", "femenino" ].reject{ |g| g == @client.gender }.first,
-      monto_titular:       @estimate.policyholder_amount,
-      monto_conyugue:      @estimate.spouse_amount,
-      dental:              @estimate.dental ? 1 : 0,
-      enfermedades_graves: @estimate.severe_illness ? 1 : 0,
-      beneficiarios:       @estimate.beneficiaries
-    }
+    @estimate_letter_html = @estimate.letter_html
+
     @attachments = @product.attachments
     render "show", :layout => "without_sidebar"
   end
 
   def get_product( country, program, coverage )
-    Product.where( :country_id => country,
-                   :program_id => program,
+    Product.where( :country_id  => country,
+                   :program_id  => program,
                    :coverage_id => coverage ).first or
       raise "No product with (country, program, coverage) = (#{country.name}, #{@program}, #{coverage.description})"      
   end
@@ -52,16 +31,18 @@ class EstimatesController < ApplicationController
   # GET /estimates/new
   # GET /estimates/new.json
   def new
-    @country = current_user.country
-    @program = Program.find(params[:program_id])
-    @coverage = Coverage.find(params[:coverage_id])
-    @product = get_product( @country, @program, @coverage )
+    @country          = current_user.country
+    @program          = Program.find(params[:program_id])
+    @coverage         = Coverage.find(params[:coverage_id])
+    @product          = get_product( @country, @program, @coverage )
+    @coverage_amounts = CoverageAmount.where( :product_id => @product )
 
-    @estimate.program = @program
+    @estimate.program  = @program
     @estimate.coverage = @coverage
-    @estimate.product = @product
-    @estimate.client = Client.new
-    @estimate.letter = Letter.find_by_program_id!(@program)
+    @estimate.product  = @product
+    @estimate.client   = Client.new
+    @estimate.letter   = Letter.find_by_program_id!(@program)
+
     render :new, :layout => "without_sidebar"
   end
 
